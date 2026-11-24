@@ -110,7 +110,7 @@ def test_fetch_single_page_fields_and_cleaning() -> None:
     assert row["code"] == "002348"
     assert row["pub_date"] == "2024-03-15"
     assert row["title"] == "关于<增资<的公告"
-    assert row["pdf_url"] == "http://static.cninfo.com.cn/finalpage/2024-03-15/121951.PDF"
+    assert row["pdf_url"] == "https://static.cninfo.com.cn/finalpage/2024-03-15/121951.PDF"
     assert row["category"] is None
     assert row["source"] == "cninfo"
 
@@ -152,7 +152,7 @@ def test_fetch_query_params_and_page_size_cap() -> None:
         session=sess, sleeper=lambda s: None,
     )
     url, data = sess.posts[0]
-    assert url == "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+    assert url == "https://www.cninfo.com.cn/new/hisAnnouncement/query"
     assert int(data["pageSize"]) <= 30
     assert str(data["pageSize"]) == "30"
     assert str(data["column"]) == "szse"

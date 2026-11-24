@@ -107,11 +107,12 @@ npm ci
 npm run build
 cd ..
 
+# 在项目根目录的 .env 中设置 ZM_ADMIN_PASSWORD（至少 16 个字符，使用随机密码）
 # 启动本地服务
 uv run uvicorn zhuang_monitor.main:app --host 127.0.0.1 --port 8317
 ```
 
-打开 <http://127.0.0.1:8317>。
+打开 <http://127.0.0.1:8317>，使用用户名 `admin` 和设置的密码登录。可用 `ZM_ADMIN_USERNAME` 自定义用户名。远程使用时保留回环监听，并由 HTTPS 反向代理接入。
 
 > 真实数据刷新脚本会访问外部数据源，可能受到网络、限速、授权和上游页面变化影响。建议先阅读源配置，再运行回填或全量刷新。
 

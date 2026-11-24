@@ -2,4 +2,13 @@
 
 import os
 
+import pytest
+
 os.environ["ZM_NOTIFY_OFF"] = "1"
+
+
+@pytest.fixture(autouse=True)
+def skip_admin_for_unrelated_tests(monkeypatch):
+    from zhuang_monitor.main import app, require_admin
+
+    monkeypatch.setitem(app.dependency_overrides, require_admin, lambda: None)
