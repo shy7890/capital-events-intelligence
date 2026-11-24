@@ -18,7 +18,7 @@ _LINE_RE = re.compile(r'^v_(?:sh|sz)(\d{6})="([^"]*)"')
 _MIN_FIELDS = 46
 _BATCH_SIZE = 60
 _KLINE_BATCH = 400  # 单次请求最多约 400 根（腾讯上限），长区间自动分页
-_URL_BASE = "http://qt.gtimg.cn/q="
+_URL_BASE = "https://qt.gtimg.cn/q="
 _KLINE_URL_BASE = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
 
 
@@ -51,7 +51,7 @@ def _default_fetch(url: str) -> str:
     """默认拉取：腾讯响应为 GBK 编码，须显式解码。"""
     import requests
 
-    resp = requests.get(url, timeout=10)
+    resp = requests.get(url, timeout=10, allow_redirects=False)
     resp.raise_for_status()
     return resp.content.decode("gbk", errors="replace")
 

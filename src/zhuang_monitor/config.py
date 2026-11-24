@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -22,6 +23,8 @@ class Settings(BaseSettings):
     db_path: Path = PROJECT_ROOT / "data" / "zhuang.db"
     host: str = "127.0.0.1"
     port: int = 8317
+    admin_username: str = "admin"
+    admin_password: SecretStr | None = None
 
     # Optional authorized financial-data bridge. The public package has no provider default.
     ifind_mcp_url: str = os.getenv("ZM_IFIND_MCP_URL", "")

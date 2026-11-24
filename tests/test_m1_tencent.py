@@ -63,7 +63,7 @@ def test_snapshot_skips_none_match_and_keys_by_code() -> None:
 
 
 def test_snapshot_requests_prefixed_codes_in_input_order() -> None:
-    """URL 应为 http://qt.gtimg.cn/q= 加逗号连接的带市场前缀代码（无点）。"""
+    """URL 应为 https://qt.gtimg.cn/q= 加逗号连接的带市场前缀代码（无点）。"""
     urls: list[str] = []
 
     def fake(url: str) -> str:
@@ -71,7 +71,7 @@ def test_snapshot_requests_prefixed_codes_in_input_order() -> None:
         return ""
 
     snapshot(["002348", "600000", "300750"], fetch_text=fake)
-    assert urls == ["http://qt.gtimg.cn/q=sz002348,sh600000,sz300750"]
+    assert urls == ["https://qt.gtimg.cn/q=sz002348,sh600000,sz300750"]
 
 
 def test_snapshot_batches_at_most_60_codes() -> None:

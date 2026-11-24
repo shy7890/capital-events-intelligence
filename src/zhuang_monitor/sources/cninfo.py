@@ -16,16 +16,16 @@ from typing import Any, Callable
 
 import requests
 
-ORGID_URL = "http://www.cninfo.com.cn/new/data/szse_stock.json"
-QUERY_URL = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
-STATIC_PREFIX = "http://static.cninfo.com.cn/"
+ORGID_URL = "https://www.cninfo.com.cn/new/data/szse_stock.json"
+QUERY_URL = "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+STATIC_PREFIX = "https://static.cninfo.com.cn/"
 USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 )
 HEADERS = {
     "User-Agent": USER_AGENT,
-    "Referer": "http://www.cninfo.com.cn/new/index",
+    "Referer": "https://www.cninfo.com.cn/new/index",
 }
 
 MIN_INTERVAL = 1.5
@@ -59,7 +59,7 @@ def _throttle(sleeper: Callable[[float], None] = time.sleep) -> None:
 
 def _default_fetch_json(url: str) -> dict:
     _throttle()
-    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp = requests.get(url, headers=HEADERS, timeout=30, allow_redirects=False)
     resp.raise_for_status()
     return resp.json()
 
@@ -129,7 +129,7 @@ def fetch_announcements(
         if category:
             data["category"] = category
         _throttle(sleeper)
-        resp = sess.post(QUERY_URL, data=data, headers=HEADERS, timeout=30)
+        resp = sess.post(QUERY_URL, data=data, headers=HEADERS, timeout=30, allow_redirects=False)
         resp.raise_for_status()
         payload = resp.json()
         for item in payload.get("announcements") or []:
